@@ -6,7 +6,7 @@ import datetime
 
 DBClient = MongoClient(os.getenv('MONGODB_URL'))
 # DBClient = MongoClient()
-download_file = DBClient['download']['test']
+download_file = DBClient['download']['download_file']
 
 
 class UploadFile(object):
