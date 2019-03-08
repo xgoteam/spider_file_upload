@@ -69,5 +69,5 @@ class UploadFile(object):
 
 
 if __name__ == '__main__':
-    a = UploadFile(file_name='<you-file-name>', file_path=r'D:\b', bucket_name=os.getenv('BucketName'))
+    a = UploadFile(file_name='<your-file-name>', file_path=r'<your-file-path>', bucket_name=os.getenv('BucketName'))
     a.start_upload()
