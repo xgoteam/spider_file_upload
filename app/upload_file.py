@@ -15,7 +15,6 @@ class UploadFile(object):
         :param file_name: 保存至OSS文件名称,自己起名，也可为文件名
         :param file_path:  文件所在路径
         :param bucket_name: 仓库名称
-
         :return 保存至 oss/mongo 的文件名，仓库名
         注意： 上传文件夹不要重名，否则会被覆盖
         """
