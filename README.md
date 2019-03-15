@@ -21,6 +21,7 @@ upload.start_upload()
 ### 注意
 
 `file_path="<your-filename>"` 代表文件路径，最后的文件名不能重复，否则会被覆盖。
+
 `bucket_name=os.getenv('OSS_BUCKET_NAME')` 代表仓库名称
 
 
