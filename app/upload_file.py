@@ -10,7 +10,7 @@ download_file = DBClient['download']['download_file']
 
 
 class UploadFile(object):
-    def __init__(self, file_name, file_path, bucket_name):
+    def __init__(self, file_path, bucket_name):
         """
         :param file_name: 保存至OSS文件名称,自己起名，也可为文件名
         :param file_path:  文件所在路径
@@ -22,7 +22,10 @@ class UploadFile(object):
         self.auth = oss2.Auth(os.getenv('AccessKeyId'), os.getenv('AccessKeySecret'))
         self.bucket_name = bucket_name
         self.endpoint = os.getenv('Endpoint')
-        self.filename = file_name
+        # 分离文件名称
+        filespath, tempfilename = os.path.split(file_path)
+        filename, extension = os.path.splitext(tempfilename)
+        self.filename = filename + extension
 
     def upload(self, path, file_name):
         """上传文件"""
@@ -57,8 +60,8 @@ class UploadFile(object):
                 for filename in filenames:
                     zip.write(os.path.join(path, filename), os.path.join(fpath, filename))
             zip.close()
-            return 'oss-spider-{}'.format(self.filename), self.path + '.zip'
-        return 'oss-spider-{}'.format(self.filename), self.path
+            return 'oss-spider_download/{}.zip'.format(self.filename), self.path + '.zip'
+        return 'oss-spider_download/{}'.format(self.filename), self.path
 
     def start_upload(self):
         name, path = self.zip_dir()
@@ -69,5 +72,6 @@ class UploadFile(object):
 
 
 if __name__ == '__main__':
-    a = UploadFile(file_name='<your-file-name>', file_path=r'<your-file-path>', bucket_name=os.getenv('BucketName'))
-    a.start_upload()
+    # a = UploadFile(file_path=r"./as", bucket_name=os.getenv('BucketName'))
+    upload = UploadFile(file_path="<your-filename>", bucket_name=os.getenv('BucketName'))
+    upload.start_upload()
