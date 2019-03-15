@@ -4,8 +4,8 @@ import oss2
 from pymongo import MongoClient
 import datetime
 
-DBClient = MongoClient(os.getenv('MONGODB_URL'))
-# DBClient = MongoClient()
+# DBClient = MongoClient(os.getenv('MONGODB_URL'))
+DBClient = MongoClient()
 download_file = DBClient['download']['download_file']
 
 
@@ -38,14 +38,14 @@ class UploadFile(object):
         #     # current = fileobj.tell()
         #     bucket.put_object(file_name, fileobj)
 
-    def save_mongodb(self):
+    def save_mongodb(self, name):
         try:
-            download_file.insert_one({"name": 'oss-spider-{}'.format(self.filename), "bucketname": self.bucket_name,
+            download_file.insert_one({"name": '{}'.format(name), "bucketname": self.bucket_name,
                                       'data': datetime.datetime.now().strftime('%Y-%m-%d')})
         except Exception as e:
             print('保存mongo数据库失败: %s' % e)
         print('保存至数据库成功')
-        return 'oss-spider-{}'.format(self.filename), self.bucket_name
+        return '{}'.format(name), self.bucket_name
 
     def zip_dir(self):
         """
@@ -66,12 +66,13 @@ class UploadFile(object):
     def start_upload(self):
         name, path = self.zip_dir()
         self.upload(path=path, file_name=name)
-        file_name, bucket_name = self.save_mongodb()
+        filespath, tempfilename = os.path.split(path)
+        mongo_name, extension = os.path.splitext(tempfilename)
+        self.save_mongodb(mongo_name+extension)
         print('上传结束')
-        return file_name, bucket_name
 
 
 if __name__ == '__main__':
-    # a = UploadFile(file_path=r"./as", bucket_name=os.getenv('BucketName'))
+    # upload = UploadFile(file_path=r"./as", bucket_name=os.getenv('BucketName'))
     upload = UploadFile(file_path="<your-filename>", bucket_name=os.getenv('BucketName'))
     upload.start_upload()
