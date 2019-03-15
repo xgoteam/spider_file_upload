@@ -11,7 +11,7 @@ pipenv install -e git+https://github.com/xgoteam/spider_file_upload.git#egg=spid
 ### 使用
 
 ```python
-from spider_file_upload import UploadFile
+from spider_file_upload.upload_file import UploadFile
 
 upload = UploadFile(file_path="<your-filename>", bucket_name=os.getenv('OSS_BUCKET_NAME'))
 
