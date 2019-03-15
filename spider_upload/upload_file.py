@@ -4,8 +4,8 @@ import oss2
 from pymongo import MongoClient
 import datetime
 
-# DBClient = MongoClient(os.getenv('MONGODB_URL'))
-DBClient = MongoClient()
+DBClient = MongoClient(os.getenv('MONGODB_URL'))
+# DBClient = MongoClient()
 download_file = DBClient['ORDER_SPIDER']['download_file']
 
 
