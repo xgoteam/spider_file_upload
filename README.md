@@ -26,12 +26,12 @@ upload.start_upload()
 
 
 
-### 需要添加环境变量
+### 需要添加环境变量 .env
 ```
-OSS_ACCESS_KEYID ='LTAIkRCJEhGM3wrz'
-OSS_ACCESS_KEY_SECRET ='EgqjTWic7e1Hn53wRjVTeWE8y6RX9R'
-OSS_BUCKET_NAME = 'hiii-test'
-OSS_ENDPOINT = 'oss-cn-shenzhen.aliyuncs.com'
-MONGODB_URL = 'mongodb://127.0.0.1:27017'
+OSS_ACCESS_KEYID =
+OSS_ACCESS_KEY_SECRET =
+OSS_BUCKET_NAME = 
+OSS_ENDPOINT = 
+MONGODB_URL = 
 
 ```
