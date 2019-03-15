@@ -6,7 +6,7 @@ import datetime
 
 DBClient = MongoClient(os.getenv('MONGODB_URL'))
 # DBClient = MongoClient()
-download_file = DBClient['ORDER_SPIDER']['download_file']
+download_file = DBClient['SPIDER-ADMIN']['download_file']
 
 
 class UploadFile(object):
@@ -20,7 +20,7 @@ class UploadFile(object):
         self.path = file_path
         self.auth = oss2.Auth(os.getenv('OSS_ACCESS_KEYID'), os.getenv('OSS_ACCESS_KEY_SECRET'))
         self.bucket_name = bucket_name
-        self.endpoint = os.getenv('ENDPOINT')
+        self.endpoint = os.getenv('OSS_ENDPOINT')
         # 分离文件名称
         filespath, tempfilename = os.path.split(file_path)
         filename, extension = os.path.splitext(tempfilename)
