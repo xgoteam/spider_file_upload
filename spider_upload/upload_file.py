@@ -39,7 +39,7 @@ class UploadFile(object):
 
     def save_mongodb(self, name):
         try:
-            download_file.insert_one({"name": '{}'.format(name), "OSS_BUCKET_NAME": self.bucket_name,
+            download_file.insert_one({"name": '{}'.format(name), "bucketname": self.bucket_name,
                                       'data': datetime.datetime.now().strftime('%Y-%m-%d')})
         except Exception as e:
             print('保存mongo数据库失败: %s' % e)
