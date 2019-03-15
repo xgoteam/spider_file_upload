@@ -6,22 +6,21 @@ import datetime
 
 # DBClient = MongoClient(os.getenv('MONGODB_URL'))
 DBClient = MongoClient()
-download_file = DBClient['download']['download_file']
+download_file = DBClient['ORDER_SPIDER']['download_file']
 
 
 class UploadFile(object):
     def __init__(self, file_path, bucket_name):
         """
-        :param file_name: 保存至OSS文件名称,自己起名，也可为文件名
         :param file_path:  文件所在路径
         :param bucket_name: 仓库名称
         :return 保存至 oss/mongo 的文件名，仓库名
         注意： 上传文件夹不要重名，否则会被覆盖
         """
         self.path = file_path
-        self.auth = oss2.Auth(os.getenv('AccessKeyId'), os.getenv('AccessKeySecret'))
+        self.auth = oss2.Auth(os.getenv('OSS_ACCESS_KEYID'), os.getenv('OSS_ACCESS_KEY_SECRET'))
         self.bucket_name = bucket_name
-        self.endpoint = os.getenv('Endpoint')
+        self.endpoint = os.getenv('ENDPOINT')
         # 分离文件名称
         filespath, tempfilename = os.path.split(file_path)
         filename, extension = os.path.splitext(tempfilename)
@@ -40,7 +39,7 @@ class UploadFile(object):
 
     def save_mongodb(self, name):
         try:
-            download_file.insert_one({"name": '{}'.format(name), "bucketname": self.bucket_name,
+            download_file.insert_one({"name": '{}'.format(name), "OSS_BUCKET_NAME": self.bucket_name,
                                       'data': datetime.datetime.now().strftime('%Y-%m-%d')})
         except Exception as e:
             print('保存mongo数据库失败: %s' % e)
@@ -74,5 +73,5 @@ class UploadFile(object):
 
 if __name__ == '__main__':
     # upload = UploadFile(file_path=r"./as", bucket_name=os.getenv('BucketName'))
-    upload = UploadFile(file_path="<your-filename>", bucket_name=os.getenv('BucketName'))
+    upload = UploadFile(file_path="<your-filename>", bucket_name=os.getenv('OSS_BUCKET_NAME'))
     upload.start_upload()
