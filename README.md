@@ -26,7 +26,7 @@ upload.start_upload()
 
 
 
-### 需要添加环境变量 .env
+### 需要添加环境变量 
 ```
 OSS_ACCESS_KEYID =
 OSS_ACCESS_KEY_SECRET =
