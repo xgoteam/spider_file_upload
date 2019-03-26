@@ -68,7 +68,7 @@ class UploadFile(object):
         filespath, tempfilename = os.path.split(path)
         mongo_name, extension = os.path.splitext(tempfilename)
         self.save_mongodb(mongo_name+extension)
-        print('--上传结束')
+        print('--上传结束--')
 
 
 if __name__ == '__main__':
