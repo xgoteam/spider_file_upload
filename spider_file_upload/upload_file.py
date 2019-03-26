@@ -28,10 +28,10 @@ class UploadFile(object):
 
     def upload(self, path, file_name):
         """上传文件"""
-        print('开始上传文件')
+        print('--开始上传文件--')
         bucket = oss2.Bucket(self.auth, self.endpoint, self.bucket_name)
         bucket.put_object_from_file(file_name, path)
-        print('保存至Oss成功')
+        print('--保存至Oss成功--')
         # with open(path, 'rb') as fileobj:
         #     # fileobj.seek(1000, os.SEEK_SET)
         #     # current = fileobj.tell()
@@ -40,10 +40,10 @@ class UploadFile(object):
     def save_mongodb(self, name):
         try:
             download_file.insert_one({"name": '{}'.format(name), "bucketname": self.bucket_name,
-                                      'data': datetime.datetime.now().strftime('%Y-%m-%d')})
+                                      'data': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
         except Exception as e:
-            print('保存mongo数据库失败: %s' % e)
-        print('保存至数据库成功')
+            print('--保存mongo数据库失败--: %s' % e)
+        print('--保存至数据库成功--')
         return '{}'.format(name), self.bucket_name
 
     def zip_dir(self):
@@ -52,7 +52,7 @@ class UploadFile(object):
         压缩文件 - > 指定文件夹
         """
         if os.path.isdir(self.path):
-            print('开始压缩文件')
+            print('--开始压缩文件--')
             zip = zipfile.ZipFile(self.path + '.zip', "w", zipfile.ZIP_DEFLATED)
             for path, dirnames, filenames in os.walk(self.path):
                 fpath = path.replace(self.path, '')
@@ -68,7 +68,7 @@ class UploadFile(object):
         filespath, tempfilename = os.path.split(path)
         mongo_name, extension = os.path.splitext(tempfilename)
         self.save_mongodb(mongo_name+extension)
-        print('上传结束')
+        print('--上传结束')
 
 
 if __name__ == '__main__':
