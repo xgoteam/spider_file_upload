@@ -7,7 +7,7 @@ from setuptools import (
 
 setup(
     name='oss_bucket_methods',  # 模块名称
-    version='1.0',
+    version='1.1',
     description='Oss云存储 上传方法',  # 描述
     packages=find_packages(),
     author='guo_jd',
