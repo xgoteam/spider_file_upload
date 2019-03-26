@@ -5,7 +5,7 @@
 ### 安装
 
 ```
-pipenv install -e git+https://github.com/xgoteam/spider_file_upload.git#egg=spider_file_upload
+pipenv install -e git+https://github.com/xgoteam/spider_file_upload.git@master#egg=spider_file_upload
 ```
 
 ### 使用
